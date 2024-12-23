@@ -1,3 +1,5 @@
+use crate::rpos_drv;
+
 use super::checksum::Checksum;
 use byteorder::{ByteOrder, LittleEndian};
 use rpos_drv::{Message, ProtocolDecoder, ProtocolEncoder};
@@ -80,8 +82,9 @@ impl RplidarHostProtocol {
             }
         } else {
             Err(RposError::ProtocolError {
-                description: "sync byte status error".to_owned()
-            }.into())
+                description: "sync byte status error".to_owned(),
+            }
+            .into())
         }
     }
 
@@ -95,7 +98,10 @@ impl RplidarHostProtocol {
             self.decode_ans_header_metadata();
             if self.response_size == 0 {
                 if (self.ans_flag & RPLIDAR_ANS_PKTFLAG_LOOP) == RPLIDAR_ANS_PKTFLAG_LOOP {
-                    Err(RposError::ProtocolError { description: "received loop answer with no response size".to_owned() }.into())
+                    Err(RposError::ProtocolError {
+                        description: "received loop answer with no response size".to_owned(),
+                    }
+                    .into())
                 } else {
                     let answer = Ok((bytes_actual_read, Some(self.decoding_msg.clone())));
                     self.reset_decoder();
@@ -140,9 +146,9 @@ impl RplidarHostProtocol {
 }
 
 impl Default for RplidarHostProtocol {
-fn default() -> Self {
-       Self::new()
-   }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl ProtocolDecoder for RplidarHostProtocol {
@@ -192,7 +198,10 @@ impl ProtocolEncoder for RplidarHostProtocol {
         }
 
         if msg.data.len() > 255 {
-            return Err(RposError::OperationFail { description: "payload too big".to_owned() }.into());
+            return Err(RposError::OperationFail {
+                description: "payload too big".to_owned(),
+            }
+            .into());
         }
 
         let cmd = if !msg.data.is_empty() {
@@ -224,7 +233,10 @@ impl ProtocolEncoder for RplidarHostProtocol {
     /// Estimate encoded message size (must be greater than or equal to the actual encoded size)
     fn estimate_encoded_size(&mut self, msg: &Message) -> Result<usize> {
         if msg.data.len() > 255 {
-            return Err(RposError::OperationFail { description: "payload too big".to_owned() }.into());
+            return Err(RposError::OperationFail {
+                description: "payload too big".to_owned(),
+            }
+            .into());
         }
 
         if !msg.data.is_empty() {
@@ -254,6 +266,8 @@ mod tests {
 
     use rpos_drv::{Message, ProtocolEncoder, Result};
 
+    use crate::rpos_drv;
+
     fn encode<T: ProtocolEncoder>(protocol: &mut T, msg: &Message) -> Result<Vec<u8>> {
         let encoded_bytes = protocol.estimate_encoded_size(&msg)?;
         let mut buf = vec![0; encoded_bytes];
@@ -280,5 +294,4 @@ mod tests {
             [0xA5, 0x82, 0x05, 0, 0, 0, 0, 0, 0x22]
         );
     }
-
 }
