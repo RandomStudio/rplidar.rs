@@ -32,3 +32,6 @@ serialport = { version = "4.2.0", default-features = false, features = [] }
 [workspace]
 members = ["rpos_drv"]
 resolver = "2"
+
+[patch.crates-io]
+rpos_drv = { path = "rpos_drv", version = "0.3" }
