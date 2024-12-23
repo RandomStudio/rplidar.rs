@@ -3,14 +3,13 @@ name = "rplidar_drv_rs"
 description = "Driver for Slamtec RPLIDAR series laser sensors"
 version = "0.7.0"
 license = "BSD-2-Clause"
-repository = "https://github.com/cnwzhjs/rplidar.rs"
+repository = "https://github.com/RandomStudio/rplidar.rs"
 keywords = ["Slamtec", "Rplidar", "Driver"]
 authors = [
     "Tony Huang <tony@slamtec.com>",
     "Stephen Buchanan <webtvmaster@gmail.com>",
 ]
-edition = "2018"
-documentation = "https://docs.rs/rplidar_drv"
+edition = "2021"
 exclude = [".gitignore", ".travis.yml", ".cargo/config"]
 
 [badges]
