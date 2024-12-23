@@ -1,17 +1,20 @@
 [package]
-name = "rplidar_drv"
+name = "rplidar_drv_rs"
 description = "Driver for Slamtec RPLIDAR series laser sensors"
-version = "0.6.0"
+version = "0.7.0"
 license = "BSD-2-Clause"
 repository = "https://github.com/cnwzhjs/rplidar.rs"
 keywords = ["Slamtec", "Rplidar", "Driver"]
-authors = ["Tony Huang <tony@slamtec.com>"]
+authors = [
+    "Tony Huang <tony@slamtec.com>",
+    "Stephen Buchanan <webtvmaster@gmail.com>",
+]
 edition = "2018"
 documentation = "https://docs.rs/rplidar_drv"
 exclude = [".gitignore", ".travis.yml", ".cargo/config"]
 
 [badges]
-travis-ci = { repository = "cnwzhjs/rplidar.rs", branch = "master" }
+travis-ci = { repository = "RandomStudio/rplidar.rs", branch = "main" }
 
 [lib]
 name = "rplidar_drv"
@@ -29,12 +32,8 @@ serialport = { version = "4.2.0", default-features = false, features = [] }
 
 
 [workspace]
-members = [
-    "rpos_drv",
-    "examples/*",
-]
+members = ["rpos_drv", "examples/*"]
 resolver = "2"
 
 [patch.crates-io]
 rpos_drv = { path = "rpos_drv" }
-
